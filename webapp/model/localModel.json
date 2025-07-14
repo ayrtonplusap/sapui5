@@ -1,0 +1,90 @@
+{
+    "isView": true,
+    "tableMode" : "MultiSelect",
+    "oCreateUser": {
+        "Name": "",
+        "Email": "",
+        "Phone": "",
+        "Role": ""
+    },
+    "aRole": [
+        {
+            "RolId": "ADM",
+            "Name": "Admin"
+        },
+        {
+            "RolId": "EDI",
+            "Name": "Editor"
+        },
+        {
+            "RolId": "VIE",
+            "Name": "Viewer"
+        }
+    ],
+    "aUser": [
+        {
+            "UserID": "USR001",
+            "Name": "Juan López",
+            "Email": "jlopez@example.com",
+            "Phone": "987654321",
+            "Role": "ADM",
+            "Status": true
+        },
+        {
+            "UserID": "USR002",
+            "Name": "María García",
+            "Email": "mgarcia@example.com",
+            "Phone": "912345678",
+            "Role": "EDI",
+            "Status": true
+        },
+        {
+            "UserID": "USR003",
+            "Name": "Raúl Fernández",
+            "Email": "rfernandez@example.com",
+            "Phone": "911223344",
+            "Role": "VIE",
+            "Status": false
+        },
+        {
+            "UserID": "USR004",
+            "Name": "Carla Castro",
+            "Email": "ccastro@example.com",
+            "Phone": "986543210",
+            "Role": "EDI",
+            "Status": true
+        },
+        {
+            "UserID": "USR005",
+            "Name": "Hugo Rojas",
+            "Email": "hrojas@example.com",
+            "Phone": "955667788",
+            "Role": "ADM",
+            "Status": false
+        },
+        {
+            "UserID": "USR006",
+            "Name": "Lucía Perez",
+            "Email": "lperez@example.com",
+            "Phone": "900112233",
+            "Role": "VIE",
+            "Status": true
+        },
+        {
+            "UserID": "USR007",
+            "Name": "Alonso Bustamante",
+            "Email": "abustamante@example.com",
+            "Phone": "944556677",
+            "Role": "EDI",
+            "Status": true
+        },
+        {
+            "UserID": "USR008",
+            "Name": "Natalia Valdez",
+            "Email": "nvaldez@example.com",
+            "Phone": "933221100",
+            "Role": "VIE",
+            "Status": false
+        }
+    ]
+}

@@ -1,0 +1,232 @@
+<mvc:View
+    controllerName="zplusap.sapui5.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <VBox>
+            <f:SimpleForm
+                id="SimpleFormDisplayCreateUser"
+                editable="false"
+                layout="ResponsiveGridLayout"
+                title="Información del usuario"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+            >
+                <f:content>
+                    <Label text="Nombre" />
+                    <Input
+                        value="{localModel>/oCreateUser/Name}"
+                        required="true"
+                    />
+                    <Label text="Email" />
+                    <Input
+                        value="{localModel>/oCreateUser/Email}"
+                        type="Email"
+                        required="true"
+                    />
+                    <Label text="Teléfono" />
+                    <Input
+                        type="Tel"
+                        value="{localModel>/oCreateUser/Phone}"
+                        required="true"
+                    />
+                    <Label text="Rol" />
+                    <Select
+                        forceSelection="false"
+                        selectedKey="{localModel>/oCreateUser/Role}"
+                        items="{localModel>/aRole}"
+                        required="true"
+                    >
+                        <core:Item
+                            key="{localModel>RolId}"
+                            text="{localModel>Name}"
+                        />
+                    </Select>
+                    <Button
+                        text="Crear usuario"
+                        icon="sap-icon://add-employee"
+                        type="Emphasized"
+                        press="onPressCreateUser"
+                    />
+                </f:content>
+            </f:SimpleForm>
+        </VBox>
+        <Table
+            id="idUsersTable"
+            inset="false"
+            items="{localModel>/aUser}"
+            mode="{localModel>/tableMode}"
+        >
+            <headerToolbar>
+                <OverflowToolbar>
+                    <content>
+                        <Title
+                            text="Usuarios ({= ${localModel>/aUser}.length})"
+                            level="H2"
+                        />
+                        <ToolbarSpacer />
+                        <SearchField
+                            width="25%"
+                            class="sapUiSmallMargin"
+                            value="{localModel>/sSearch}"
+                            search="onSearch"
+                        />
+                        <Button
+                            text="Editar usuarios"
+                            icon="sap-icon://user-edit"
+                            press="onPressEdit"
+                            visible="{localModel>/isView}"
+                        />
+                        <Button
+                            text="Guardar edición"
+                            press="onPressSave"
+                            icon="sap-icon://save"
+                            visible="{= !${localModel>/isView} }"
+                        />
+                        <Button
+                            text="Cancelar edición"
+                            press="onPressCancel"
+                            icon="sap-icon://decline"
+                            visible="{= !${localModel>/isView} }"
+                        />
+                        <Button
+                            text="Eliminar usuarios seleccionados"
+                            icon="sap-icon://delete"
+                            press="onPressDelete"
+                            visible="{localModel>/isView}"
+                        />
+                    </content>
+                </OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <Column width="8em">
+                    <Text text="ID" />
+                </Column>
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                >
+                    <Text text="Nombre" />
+                </Column>
+                <Column
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                    hAlign="Begin"
+                >
+                    <Text text="Email" />
+                </Column>
+                <Column
+                    width="8em"
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                    hAlign="Begin"
+                >
+                    <Text text="Teléfono" />
+                </Column>
+                <Column
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                    hAlign="Center"
+                    width="10rem"
+                >
+                    <Text text="Rol" />
+                </Column>
+                <Column
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                    hAlign="Center"
+                    width="10rem"
+                >
+                    <Text text="Estado" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem vAlign="Middle">
+                    <cells>
+                        <HBox>
+                            <ObjectIdentifier title="{localModel>UserID}" />
+                        </HBox>
+                        <HBox>
+                            <Text
+                                text="{localModel>Name}"
+                                visible="{localModel>/isView}"
+                            />
+                            <Input
+                                value="{localModel>Name}"
+                                visible="{= !${localModel>/isView} }"
+                            />
+                        </HBox>
+                        <HBox>
+                            <Text
+                                text="{localModel>Email}"
+                                visible="{localModel>/isView}"
+                            />
+                            <Input
+                                value="{localModel>Email}"
+                                type="Email"
+                                visible="{= !${localModel>/isView} }"
+                            />
+                        </HBox>
+                        <HBox>
+                            <Text
+                                text="{localModel>Phone}"
+                                visible="{localModel>/isView}"
+                            />
+                            <Input
+                                value="{localModel>Phone}"
+                                type="Tel"
+                                visible="{= !${localModel>/isView} }"
+                            />
+                        </HBox>
+                        <HBox>
+                            <Text
+                                text="{path:'localModel>Role', formatter:'.formatter.formatRole'}"
+                                visible="{localModel>/isView}"
+                            />
+                            <Select
+                                selectedKey="{localModel>Role}"
+                                items="{localModel>/aRole}"
+                                visible="{= !${localModel>/isView} }"
+                            >
+                                <core:Item
+                                    key="{localModel>RolId}"
+                                    text="{localModel>Name}"
+                                />
+                            </Select>
+                        </HBox>
+                        <HBox>
+                            <ObjectStatus
+                                class="sapUiSmallMarginBottom"
+                                text="{path: 'localModel>Status', formatter: '.formatter.formatTextStatus'}"
+                                inverted="true"
+                                state="{path: 'localModel>Status', formatter: '.formatter.formatStateStatus'}"
+                                visible="{localModel>/isView}"
+                            />
+                            <Switch
+                                state="{localModel>Status}"
+                                visible="{= !${localModel>/isView} }"
+                            />
+                        </HBox>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>
