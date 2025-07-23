@@ -18,6 +18,41 @@ sap.ui.define([
         onInit() {
             // Accedemos al modelo local definido en el componente (modelo JSON con datos de pantalla)
             this.localModel = this.getOwnerComponent().getModel("localModel");
+
+            // Configurar modelo desde el controlador
+            this.setModelinController();
+        },
+
+        setModelinController() {
+            // Define the data structure for roles
+            const oData = {
+                aRole: [
+                    {
+                        RolId: "ADM",
+                        Name: "Admin"
+                    },
+                    {
+                        RolId: "EDI",
+                        Name: "Editor"
+                    },
+                    {
+                        RolId: "VIE",
+                        Name: "Viewer"
+                    }
+                ]
+            };
+
+            // Create a new JSON model with the role data
+            var oModel = new sap.ui.model.json.JSONModel(oData);
+
+            // Set the created model to the view with the name 'roleModel'
+            this.getOwnerComponent().setModel(oModel, "roleModel");
+        },
+
+        onIdPress(oEvent) {
+            let oItem = oEvent.getSource();
+
+            this.getOwnerComponent().getRouter().navTo("RouteDetail", {UserID: oItem.getTitle()});
         },
 
         /* =======================================================

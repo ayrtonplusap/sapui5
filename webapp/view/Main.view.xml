@@ -51,12 +51,12 @@
                     <Select
                         forceSelection="false"
                         selectedKey="{localModel>/oCreateUser/Role}"
-                        items="{localModel>/aRole}"
+                        items="{roleModel>/aRole}"
                         required="true"
                     >
                         <core:Item
-                            key="{localModel>RolId}"
-                            text="{localModel>Name}"
+                            key="{roleModel>RolId}"
+                            text="{roleModel>Name}"
                         />
                     </Select>
                     <Button
@@ -161,7 +161,7 @@
                 <ColumnListItem vAlign="Middle">
                     <cells>
                         <HBox>
-                            <ObjectIdentifier title="{localModel>UserID}" />
+                            <ObjectIdentifier title="{localModel>UserID}" titleActive="true" titlePress="onIdPress" />
                         </HBox>
                         <HBox>
                             <Text
@@ -202,12 +202,12 @@
                             />
                             <Select
                                 selectedKey="{localModel>Role}"
-                                items="{localModel>/aRole}"
+                                items="{roleModel>/aRole}"
                                 visible="{= !${localModel>/isView} }"
                             >
                                 <core:Item
-                                    key="{localModel>RolId}"
-                                    text="{localModel>Name}"
+                                    key="{roleModel>RolId}"
+                                    text="{roleModel>Name}"
                                 />
                             </Select>
                         </HBox>

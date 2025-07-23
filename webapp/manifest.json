@@ -97,12 +97,24 @@
           "target": [
             "TargetMain"
           ]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern": "detail/:UserID:",
+          "target": [
+            "TargetMain",
+            "TargetDetail"
+          ]
         }
       ],
       "targets": {
         "TargetMain": {
           "id": "Main",
           "name": "Main"
+        },
+        "TargetDetail": {
+          "id": "Detail",
+          "name": "Detail"
         }
       }
     },

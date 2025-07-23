@@ -1,0 +1,70 @@
+<mvc:View
+    controllerName="zplusap.sapui5.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Page
+        id="detailPage"
+        title="Detalle del Usuario"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+    >
+        <f:SimpleForm
+            id="SimpleFormDisplayDetailUser"
+            editable="false"
+            layout="ResponsiveGridLayout"
+            title="Información del usuario"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="4"
+            emptySpanL="4"
+            emptySpanM="4"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false"
+        >
+            <f:content>
+                <Label text="Nombre" />
+                <Input
+                    value="{localModel>/selectedUser/Name}"
+                    required="true"
+                    editable="false"
+                />
+                <Label text="Email" />
+                <Input
+                    value="{localModel>/selectedUser/Email}"
+                    type="Email"
+                    required="true"
+                    editable="false"
+                />
+                <Label text="Teléfono" />
+                <Input
+                    type="Tel"
+                    value="{localModel>/selectedUser/Phone}"
+                    required="true"
+                    editable="false"
+                />
+                <Label text="Rol" />
+                <Select
+                    forceSelection="false"
+                    selectedKey="{localModel>/selectedUser/Role}"
+                    items="{roleModel>/aRole}"
+                    required="true"
+                    editable="false"
+                >
+                    <core:Item
+                        key="{roleModel>RolId}"
+                        text="{roleModel>Name}"
+                    />
+                </Select>
+            </f:content>
+        </f:SimpleForm>
+    </Page>
+</mvc:View>
