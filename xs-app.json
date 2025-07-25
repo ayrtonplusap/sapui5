@@ -3,6 +3,26 @@
   "authenticationMethod": "route",
   "routes": [
     {
+      "source": "^/sap/opu/odata/iwbep/GWSAMPLE_BASIC/(.*)$",
+      "target": "/sap/opu/odata/iwbep/GWSAMPLE_BASIC/$1",
+      "destination": "ES5",
+      "authenticationType": "BasicAuthentication",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/sap/opu/odata4/sap/ze2e001/(.*)$",
+      "target": "/sap/opu/odata4/sap/ze2e001/$1",
+      "destination": "ES5",
+      "authenticationType": "BasicAuthentication",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/pokeapi/(.*)$",
+      "target": "/$1",
+      "destination": "PokeApi",
+      "authenticationType": "NoAuthentication"
+    },
+    {
       "source": "^/resources/(.*)$",
       "target": "/resources/$1",
       "authenticationType": "none",

@@ -201,7 +201,14 @@ sap.ui.define([
             // Aplica filtro por nombre (FirstName)
             const aFilters = [new Filter("Name", FilterOperator.Contains, sQuery)];
             oBinding.filter(aFilters);
-        }
+        },
+
+        /* =======================================================
+         * Navegar a la vista de Ejemplos OData y REST
+         * ======================================================= */
+        onPressNavigateToODataExamples() {
+            this.getOwnerComponent().getRouter().navTo("RouteODataExamples");
+        },
 
     });
 });

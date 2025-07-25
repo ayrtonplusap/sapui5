@@ -9,7 +9,16 @@
         id="page"
         title="{i18n>title}"
     >
+        <headerContent>
+			<Button 
+                text="Ver Ejemplos OData y REST"
+                icon="sap-icon://action"
+                type="Emphasized"
+                press="onPressNavigateToODataExamples"
+             />
+		</headerContent>
         <VBox>
+            
             <f:SimpleForm
                 id="SimpleFormDisplayCreateUser"
                 editable="false"

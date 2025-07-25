@@ -1,0 +1,566 @@
+<mvc:View
+    controllerName="zplusap.sapui5.controller.ODataExamples"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Page
+        id="page2"
+        title="Ejemplos CRUD - OData V2 y REST API"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+    >
+        <content>
+            <IconTabBar id="idIconTabBar" class="sapUiResponsiveContentPadding">
+                <items>               
+                    <!-- ============================================= -->
+                    <!-- TAB 1: OData V2 - Business Partners -->
+                    <!-- ============================================= -->
+                    <IconTabFilter 
+                        key="odata_v2" 
+                        text="OData V2" 
+                        icon="sap-icon://account"
+                    >
+                        <VBox class="sapUiMediumMargin">
+                        <!-- FORMULARIO CRUD -->
+                        <Panel headerText="Formulario Business Partner" class="sapUiMediumMarginBottom">
+                            <content>
+                                <VBox class="sapUiMediumMargin">
+                                    <HBox class="sapUiSmallMarginBottom">
+                                        <Label text="Modo:" class="sapUiSmallMarginEnd"/>
+                                        <Text id="modeText" text="CREATE" class="sapUiSmallMarginEnd"/>
+                                        <Button 
+                                            id="clearFormButton"
+                                            text="Nuevo"
+                                            icon="sap-icon://add"
+                                            press="onClearForm"
+                                            type="Neutral"
+                                        />
+                                    </HBox>
+                                    
+                                    <f:SimpleForm
+                                        layout="ResponsiveGridLayout"
+                                        editable="true"
+                                        columnsL="2"
+                                        columnsM="1"
+                                    >
+                                        <f:content>
+                                            <!-- ID (solo lectura) -->
+                                            <Label text="BP ID:"/>
+                                            <Input 
+                                                id="bpIdInput"
+                                                value=""
+                                                editable="false"
+                                                placeholder="(Se genera automáticamente)"
+                                            />
+                                            
+                                            <!-- Company Name -->
+                                            <Label text="Company Name:"/>
+                                            <Input 
+                                                id="companyNameInput"
+                                                value="Demo Company SAP Training"
+                                                required="true"
+                                            />
+                                            
+                                            <!-- Email (único campo en blanco) -->
+                                            <Label text="Email Address:"/>
+                                            <Input 
+                                                id="emailInput"
+                                                value=""
+                                                type="Email"
+                                                required="true"
+                                                placeholder="email@company.com"
+                                            />
+                                            
+                                            <!-- Phone -->
+                                            <Label text="Phone Number:"/>
+                                            <Input 
+                                                id="phoneInput"
+                                                value="+51-1-234-5678"
+                                                type="Tel"
+                                            />
+                                            
+                                            <!-- Currency -->
+                                            <Label text="Currency:"/>
+                                            <Select 
+                                                id="currencySelect"
+                                                selectedKey="EUR"
+                                            >
+                                                <core:Item key="EUR" text="EUR - Euro"/>
+                                                <core:Item key="USD" text="USD - Dollar"/>
+                                                <core:Item key="PEN" text="PEN - Sol"/>
+                                            </Select>
+                                            
+                                            <!-- Role -->
+                                            <Label text="BP Role:"/>
+                                            <Select 
+                                                id="roleSelect"
+                                                selectedKey="01"
+                                            >
+                                                <core:Item key="01" text="01 - Customer"/>
+                                                <core:Item key="02" text="02 - Supplier"/>
+                                                <core:Item key="03" text="03 - Employee"/>
+                                            </Select>
+                                            
+                                            <!-- Address Fields -->
+                                            <Label text="Street:"/>
+                                            <Input 
+                                                id="streetInput"
+                                                value="Av. Ejemplo 123"
+                                            />
+                                            
+                                            <Label text="City:"/>
+                                            <Input 
+                                                id="cityInput"
+                                                value="Lima"
+                                            />
+                                            
+                                            <Label text="Postal Code:"/>
+                                            <Input 
+                                                id="postalCodeInput"
+                                                value="15001"
+                                            />
+
+                                            <Label text="Address Type:"/>
+                                            <Input 
+                                                id="addressTypeInput"
+                                                value="02"
+                                            />
+                                            
+                                            <Label text="Country:"/>
+                                            <Select 
+                                                id="countrySelect"
+                                                selectedKey="PE"
+                                            >
+                                                <core:Item key="PE" text="PE - Peru"/>
+                                                <core:Item key="US" text="US - United States"/>
+                                                <core:Item key="DE" text="DE - Germany"/>
+                                                <core:Item key="ES" text="ES - Spain"/>
+                                            </Select>
+                                            
+                                            <Label text="Building:"/>
+                                            <Input 
+                                                id="buildingInput"
+                                                value="16"
+                                            />
+                                        </f:content>
+                                    </f:SimpleForm>
+                                    
+                                    <!-- Botones de Acción -->
+                                    <HBox justifyContent="End">
+                                        <Button 
+                                            id="createButton"
+                                            text="CREATE - Crear BP"
+                                            icon="sap-icon://add"
+                                            press="onCreateFromForm"
+                                            type="Emphasized"
+                                            class="sapUiSmallMarginEnd"
+                                        />
+                                        <Button 
+                                            id="updateButton"
+                                            text="UPDATE - Actualizar"
+                                            icon="sap-icon://edit"
+                                            press="onUpdateFromForm"
+                                            type="Accept"
+                                            visible="false"
+                                            class="sapUiSmallMarginEnd"
+                                        />
+                                        <Button 
+                                            id="deleteButton"
+                                            text="DELETE - Eliminar"
+                                            icon="sap-icon://delete"
+                                            press="onDeleteFromForm"
+                                            type="Reject"
+                                            visible="false"
+                                        />
+                                    </HBox>
+                                </VBox>
+                            </content>
+                        </Panel>                      
+
+                        <!-- Tabla de Business Partners con binding directo a OData -->
+                        <Table 
+                            id="bpTable"
+                            items="{
+                                path: 'odatav2>/BusinessPartnerSet',
+                                parameters: {
+                                    expand: 'ToSalesOrders'                                    
+                                }
+                            }"
+                            growing="true"
+                            growingThreshold="20"
+                            mode="None"
+                        >
+                            <headerToolbar>
+                                <Toolbar>
+                                    <Title id="tbTitle" text="Business Partners" level="H2"/>
+                                    <ToolbarSpacer/>
+                                    <SearchField
+                                        id="searchInput"
+                                        width="25%"
+                                        class="sapUiSmallMargin"
+                                        value=""
+                                        search="onApplyTableFilter"
+                                    />                                    
+                                    <Button 
+                                        text="Limpiar Filtros" 
+                                        icon="sap-icon://clear-filter"
+                                        press="onClearTableFilter"
+                                        class="sapUiSmallMarginEnd"
+                                    />
+                                    <Button 
+                                        text="Ordenar Tabla" 
+                                        icon="sap-icon://sort"
+                                        press="onSortTable"
+                                        class="sapUiSmallMarginEnd"
+                                    />
+                                    <Button 
+                                        text="Refrescar" 
+                                        icon="sap-icon://refresh"
+                                        press="onRefreshModel"
+                                        class="sapUiSmallMarginEnd"
+                                    />
+                                </Toolbar>
+                            </headerToolbar>
+                            
+                            <columns>
+                                <Column>
+                                    <Text text="BP ID"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Company Name"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Email"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Phone"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Currency"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Role"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Created"/>
+                                </Column>
+                            </columns>
+                            
+                            <items>
+                                <ColumnListItem type="Active" press="onRowPress">
+                                    <cells>
+                                        <ObjectIdentifier 
+                                            title="{odatav2>BusinessPartnerID}"
+                                            titleActive="true"
+                                        />
+                                        <Text text="{odatav2>CompanyName}"/>
+                                        <Link 
+                                            text="{odatav2>EmailAddress}"
+                                            href="mailto:{odatav2>EmailAddress}"
+                                        />
+                                        <Link 
+                                            text="{odatav2>PhoneNumber}"
+                                            href="tel:{odatav2>PhoneNumber}"
+                                        />
+                                        <Text text="{odatav2>CurrencyCode}"/>
+                                        <Text text="{odatav2>BusinessPartnerRole}"/>
+                                        <Text text="{
+                                            path: 'odatav2>CreatedAt',
+                                            type: 'sap.ui.model.odata.type.DateTime',
+                                            formatOptions: {
+                                                pattern: 'dd/MM/yyyy'
+                                            }
+                                        }"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </VBox>                       
+                    </IconTabFilter>
+                    <!-- ============================================= -->
+                    <!-- TAB 2: REST API - Pokemon -->
+                    <!-- ============================================= -->
+                    <IconTabSeparator />
+                    <IconTabFilter 
+                        key="rest_api" 
+                        text="REST API" 
+                        icon="sap-icon://world"
+                    >                        
+                        <VBox class="sapUiMediumMargin">
+                        <MessageStrip 
+                            text="REST API - Pokemon desde PokeAPI.co usando JSONModel. Demuestra AJAX vs FETCH para APIs externas no-OData."
+                            type="Information"
+                            class="sapUiMediumMarginBottom"
+                        />
+                        
+                        <!-- 🎯 PANEL DE BÚSQUEDA -->
+                        <Panel headerText="🔍 Buscar Pokemon Individual" class="sapUiMediumMarginBottom">
+                            <content>
+                                <HBox alignItems="Center" class="sapUiMediumMargin">
+                                    <Input
+                                        id="pokemonSearchInput"
+                                        value="{pokemonModel>/pokemonSearch}"
+                                        placeholder="Nombre o ID del Pokemon (ej: pikachu, 25)"
+                                        width="300px"
+                                        class="sapUiSmallMarginEnd"
+                                        submit="onSearchPokemon"
+                                    />
+                                    <Button
+                                        text="Buscar Pokemon"
+                                        icon="sap-icon://search"
+                                        press="onSearchPokemon"
+                                        enabled="{= !${pokemonModel>/pokemonLoading} }"
+                                        type="Emphasized"
+                                    />
+                                    <BusyIndicator
+                                        visible="{pokemonModel>/pokemonLoading}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </HBox>
+                            </content>
+                        </Panel>
+
+                        <!-- 🎯 BOTONES PARA CARGAR DATOS -->
+                        <Panel headerText="🚀 Cargar Pokemon Populares" class="sapUiMediumMarginBottom">
+                            <content>
+                                <HBox alignItems="Center" class="sapUiMediumMargin" wrap="Wrap">
+                                    <Button
+                                        text="Cargar con AJAX"
+                                        icon="sap-icon://activate"
+                                        press="onLoadPokemonDataAjax"
+                                        tooltip="Usar jQuery AJAX (método tradicional con callbacks)"
+                                        type="Emphasized"
+                                        class="sapUiTinyMarginEnd sapUiTinyMarginBottom"
+                                        enabled="{= !${pokemonModel>/pokemonLoading} }"
+                                    />
+                                    <Button
+                                        text="Cargar con FETCH"
+                                        icon="sap-icon://feed"
+                                        press="onLoadPokemonDataFetch"
+                                        tooltip="Usar Fetch API (método moderno ES6+ con async/await)"
+                                        type="Accept"
+                                        class="sapUiTinyMarginEnd sapUiTinyMarginBottom"
+                                        enabled="{= !${pokemonModel>/pokemonLoading} }"
+                                    />
+                                    <Button
+                                        text="Limpiar Datos"
+                                        icon="sap-icon://clear-all"
+                                        press="onClearPokemonData"
+                                        type="Reject"
+                                        class="sapUiTinyMarginEnd sapUiTinyMarginBottom"
+                                    />
+                                    <Text 
+                                        text="Total Pokemon: {= ${pokemonModel>/aPokemon}.length}"
+                                        class="sapUiMediumMarginBegin"
+                                    />
+                                </HBox>
+                            </content>
+                        </Panel>
+
+                        <!-- 🎯 TABLA DE POKEMON -->
+                        <Table
+                            id="pokemonTable"
+                            inset="false"
+                            items="{pokemonModel>/aPokemon}"
+                            mode="{pokemonModel>/tableMode}"
+                            growing="true"
+                            growingThreshold="50"
+                        >
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <content>
+                                        <Title
+                                            id="pokemonTableTitle"
+                                            text="🔥 Pokemon ({= ${pokemonModel>/aPokemon}.length})"
+                                            level="H2"
+                                        />
+                                        <ToolbarSpacer />
+                                        
+                                        <SearchField
+                                            width="25%"
+                                            class="sapUiSmallMargin"
+                                            placeholder="Buscar por nombre o ID..."
+                                            search="onSearchPokemonTable"
+                                            liveChange="onSearchPokemonTable"
+                                        />
+                                        
+                                        <!-- Botones de Edición -->
+                                        <Button
+                                            text="Editar"
+                                            icon="sap-icon://edit"
+                                            press="onPressEditPokemon"
+                                            visible="{pokemonModel>/isView}"
+                                        />
+                                        <Button
+                                            text="Guardar"
+                                            press="onPressSavePokemon"
+                                            icon="sap-icon://save"
+                                            visible="{= !${pokemonModel>/isView} }"
+                                            type="Accept"
+                                        />
+                                        <Button
+                                            text="Cancelar"
+                                            press="onPressCancelPokemon"
+                                            icon="sap-icon://decline"
+                                            visible="{= !${pokemonModel>/isView} }"
+                                        />
+                                        <Button
+                                            text="Eliminar"
+                                            icon="sap-icon://delete"
+                                            press="onPressDeletePokemon"
+                                            visible="{= !${pokemonModel>/isView} }"
+                                            type="Reject"
+                                        />
+                                    </content>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            
+                            <!-- 🎯 COLUMNAS DE LA TABLA -->
+                            <columns>
+                                <Column width="6em">
+                                    <Text text="ID" />
+                                </Column>
+                                <Column width="80px" minScreenWidth="Tablet">
+                                    <Text text="🖼️ Imagen" />
+                                </Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="📛 Nombre" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End" popinDisplay="Inline">
+                                    <Text text="📏 Altura (dm)" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End" popinDisplay="Inline">
+                                    <Text text="⚖️ Peso (hg)" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End" popinDisplay="Inline">
+                                    <Text text="⭐ Exp. Base" />
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+                                    <Text text="🏷️ Tipos" />
+                                </Column>
+                            </columns>
+                            
+                            <!-- 🎯 ITEMS DE LA TABLA -->
+                            <items>
+                                <ColumnListItem vAlign="Middle" press="onPokemonRowPress">
+                                    <cells>
+                                        <!-- ID -->
+                                        <ObjectNumber 
+                                            number="{pokemonModel>id}" 
+                                            emphasized="true"
+                                        />
+                                        
+                                        <!-- Imagen -->
+                                        <Image
+                                            src="{pokemonModel>sprite}"
+                                            width="60px"
+                                            height="60px"
+                                            visible="{= !!${pokemonModel>sprite} }"
+                                            decorative="false"
+                                            alt="Imagen de {pokemonModel>name}"
+                                        />
+                                        
+                                        <!-- Nombre -->
+                                        <VBox>
+                                            <Text
+                                                text="{pokemonModel>name}"
+                                                visible="{pokemonModel>/isView}"
+                                                class="sapUiTinyMarginBottom"
+                                            />
+                                            <Input
+                                                value="{pokemonModel>name}"
+                                                visible="{= !${pokemonModel>/isView} }"
+                                                placeholder="Nombre del Pokemon"
+                                            />
+                                        </VBox>
+                                        
+                                        <!-- Altura -->
+                                        <VBox>
+                                            <ObjectNumber
+                                                number="{pokemonModel>height}"
+                                                visible="{pokemonModel>/isView}"
+                                                unit="dm"
+                                            />
+                                            <Input
+                                                value="{pokemonModel>height}"
+                                                type="Number"
+                                                visible="{= !${pokemonModel>/isView} }"
+                                            />
+                                        </VBox>
+                                        
+                                        <!-- Peso -->
+                                        <VBox>
+                                            <ObjectNumber
+                                                number="{pokemonModel>weight}"
+                                                visible="{pokemonModel>/isView}"
+                                                unit="hg"
+                                            />
+                                            <Input
+                                                value="{pokemonModel>weight}"
+                                                type="Number"
+                                                visible="{= !${pokemonModel>/isView} }"
+                                            />
+                                        </VBox>
+                                        
+                                        <!-- Experiencia Base -->
+                                        <VBox>
+                                            <ObjectNumber
+                                                number="{pokemonModel>base_experience}"
+                                                visible="{pokemonModel>/isView}"
+                                                state="Success"
+                                            />
+                                            <Input
+                                                value="{pokemonModel>base_experience}"
+                                                type="Number"
+                                                visible="{= !${pokemonModel>/isView} }"
+                                            />
+                                        </VBox>
+                                        
+                                        <!-- Tipos -->
+                                        <VBox>
+                                            <Text 
+                                                text="{
+                                                    path: 'pokemonModel>types',
+                                                    formatter: '.formatPokemonTypes'
+                                                }"
+                                                visible="{pokemonModel>/isView}"
+                                            />
+                                            <Input
+                                                value="{
+                                                    path: 'pokemonModel>types',
+                                                    formatter: '.formatPokemonTypes'
+                                                }"
+                                                visible="{= !${pokemonModel>/isView} }"
+                                                editable="false"
+                                            />
+                                        </VBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                            
+                            <!-- 🎯 MENSAJE CUANDO NO HAY DATOS -->
+                            <noData>
+                                <VBox alignItems="Center" class="sapUiMediumMargin">                                    
+                                    <Title 
+                                        text="No hay Pokemon cargados" 
+                                        level="H3"
+                                        class="sapUiMediumMarginBottom"
+                                    />
+                                    <Text 
+                                        text="Usa los botones 'Cargar con AJAX' o 'Cargar con FETCH' para obtener datos de la PokeAPI"
+                                        textAlign="Center"
+                                    />
+                                </VBox>
+                            </noData>
+                        </Table>
+                        
+                        
+                    </VBox>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>

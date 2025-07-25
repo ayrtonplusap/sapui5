@@ -15,6 +15,22 @@ server:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+        backend:
+          - url: https://sapes5.sapdevcenter.com
+            client: '002'
+            authenticationType: BasicAuthentication
+            destination: ES5
+            path: /sap
+          - url: https://sapes5.sapdevcenter.com
+            client: '002'
+            authenticationType: BasicAuthentication
+            destination: ES5
+            path: /sap/opu/odata4/sap/ze2e001/default/sap/ze2e001_salesorder/0001/
+          - url: https://sapes5.sapdevcenter.com
+            client: '002'
+            authenticationType: BasicAuthentication
+            destination: ES5
+            path: /sap/opu/odata/ui2/TRANSPORT/
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

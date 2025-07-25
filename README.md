@@ -35,3 +35,33 @@ Capacitación ADMOSA
 
 
 # sapui5
+
+
+Capacitación ADMOSA
+
+## Cambiar a la rama `odata-rest` en Git
+
+Para trabajar con la rama `odata-rest` en este proyecto, sigue estos pasos sencillos:
+
+1. **Verifica las ramas disponibles:**
+   ```sh
+   git branch -a
+   ```
+
+2. **Cambia a la rama `odata-rest`:**
+   ```sh
+   git checkout odata-rest
+   ```
+
+3. **Si la rama está en remoto y no local, usa:**
+   ```sh
+   git checkout origin/odata-rest -b odata-rest
+   ```
+4. **Instalar dependencias**
+    ```sh
+   npm install
+   ```
+5. **Preview del proyecto**
+    ```sh
+   npm run start
+   ```

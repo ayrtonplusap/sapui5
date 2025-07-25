@@ -28,6 +28,35 @@
           }
         }
       }
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/iwbep/GWSAMPLE_BASIC/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ze2e001_salesorder": {
+        "uri": "/sap/opu/odata4/sap/ze2e001/default/sap/ze2e001_salesorder/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ze2e001_salesorder/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "TRANSPORT": {
+        "uri": "/sap/opu/odata/ui2/TRANSPORT/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/TRANSPORT/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -69,6 +98,27 @@
       "localModel": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/localModel.json"
+      },
+      "odatav2": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "useBatch": false
+        }
+      },
+      "odatav4": {
+        "dataSource": "ze2e001_salesorder",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "TRANSPORT": {
+        "dataSource": "TRANSPORT",
+        "preload": true,
+        "settings": {}
       }
     },
     "resources": {
@@ -105,6 +155,13 @@
             "TargetMain",
             "TargetDetail"
           ]
+        },
+        {
+          "name": "RouteODataExamples",
+          "pattern": "odata-examples",
+          "target": [
+            "TargetODataExamples"
+          ]
         }
       ],
       "targets": {
@@ -115,6 +172,10 @@
         "TargetDetail": {
           "id": "Detail",
           "name": "Detail"
+        },
+        "TargetODataExamples": {
+          "id": "ODataExamples",
+          "name": "ODataExamples"
         }
       }
     },
