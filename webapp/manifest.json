@@ -1,193 +1,184 @@
 {
-  "_version": "1.65.0",
-  "sap.app": {
-    "id": "zplusap.sapui5",
-    "type": "application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "0.0.1"
+    "_version": "1.65.0",
+    "sap.app": {
+        "id": "zplusap.sapui5",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.18.2",
+            "toolsId": "c5b8507d-3d68-430f-9945-52ed6d8e7bf6"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "zsemobj_sapui5-Display": {
+                    "semanticObject": "zsemobj_sapui5",
+                    "action": "Display",
+                    "title": "{{zsemobj_sapui5-Display.flpTitle}}",
+                    "subTitle": "{{zsemobj_sapui5-Display.flpSubtitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/iwbep/GWSAMPLE_BASIC/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotations",
+                        "annotation0"
+                    ],
+                    "localUri": "localService/mainService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "annotation0": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation0.xml",
+                "settings": {
+                    "localUri": "annotations/annotation0.xml"
+                }
+            }
+        }
     },
-    "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "sourceTemplate": {
-      "id": "@sap/generator-fiori:basic",
-      "version": "1.18.2",
-      "toolsId": "c5b8507d-3d68-430f-9945-52ed6d8e7bf6"
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
     },
-    "crossNavigation": {
-      "inbounds": {
-        "zsemobj_sapui5-Display": {
-          "semanticObject": "zsemobj_sapui5",
-          "action": "Display",
-          "title": "{{zsemobj_sapui5-Display.flpTitle}}",
-          "subTitle": "{{zsemobj_sapui5-Display.flpSubtitle}}",
-          "signature": {
-            "parameters": {},
-            "additionalParameters": "allowed"
-          }
+    "sap.ui5": {
+        "flexEnabled": false,
+        "dependencies": {
+            "minUI5Version": "1.138.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ui.comp": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "zplusap.sapui5.i18n.i18n"
+                }
+            },
+            "localModel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/localModel.json"
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "useBatch": false,
+                    "defaultBindingMode": "TwoWay"
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "transition": "slide",
+                "type": "View",
+                "viewType": "XML",
+                "path": "zplusap.sapui5.view",
+                "async": true,
+                "viewPath": "zplusap.sapui5.view"
+            },
+            "routes": [
+                {
+                    "name": "RouteMain",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetMain"
+                    ]
+                },
+                {
+                    "name": "RouteDetail",
+                    "pattern": "detail/:UserID:",
+                    "target": [
+                        "TargetMain",
+                        "TargetDetail"
+                    ]
+                },
+                {
+                    "name": "RouteODataExamples",
+                    "pattern": "odata-examples",
+                    "target": [
+                        "TargetODataExamples"
+                    ]
+                },
+                {
+                    "name": "RouteSmartControls",
+                    "pattern": "smart-controls",
+                    "target": [
+                        "TargetSmartControls"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetMain": {
+                    "id": "Main",
+                    "name": "Main"
+                },
+                "TargetDetail": {
+                    "id": "Detail",
+                    "name": "Detail"
+                },
+                "TargetODataExamples": {
+                    "id": "ODataExamples",
+                    "name": "ODataExamples"
+                },
+                "TargetSmartControls": {
+                    "id": "SmartControls",
+                    "name": "SmartControls"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "zplusap.sapui5.view.App",
+            "type": "XML",
+            "id": "App",
+            "async": true
         }
-      }
     },
-    "dataSources": {
-      "mainService": {
-        "uri": "/sap/opu/odata/iwbep/GWSAMPLE_BASIC/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/mainService/metadata.xml",
-          "odataVersion": "2.0"
-        }
-      },
-      "ze2e001_salesorder": {
-        "uri": "/sap/opu/odata4/sap/ze2e001/default/sap/ze2e001_salesorder/0001/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/ze2e001_salesorder/metadata.xml",
-          "odataVersion": "4.0"
-        }
-      },
-      "TRANSPORT": {
-        "uri": "/sap/opu/odata/ui2/TRANSPORT/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/TRANSPORT/metadata.xml",
-          "odataVersion": "2.0"
-        }
-      }
+    "sap.cloud": {
+        "public": true,
+        "service": "zplusapsapui5"
     }
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
-  },
-  "sap.ui5": {
-    "flexEnabled": true,
-    "dependencies": {
-      "minUI5Version": "1.138.0",
-      "libs": {
-        "sap.m": {},
-        "sap.ui.core": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
-    "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "zplusap.sapui5.i18n.i18n"
-        }
-      },
-      "localModel": {
-        "type": "sap.ui.model.json.JSONModel",
-        "uri": "model/localModel.json"
-      },
-      "odatav2": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {
-          "useBatch": false
-        }
-      },
-      "odatav4": {
-        "dataSource": "ze2e001_salesorder",
-        "preload": true,
-        "settings": {
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
-        }
-      },
-      "TRANSPORT": {
-        "dataSource": "TRANSPORT",
-        "preload": true,
-        "settings": {}
-      }
-    },
-    "resources": {
-      "css": [
-        {
-          "uri": "css/style.css"
-        }
-      ]
-    },
-    "routing": {
-      "config": {
-        "routerClass": "sap.m.routing.Router",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "transition": "slide",
-        "type": "View",
-        "viewType": "XML",
-        "path": "zplusap.sapui5.view",
-        "async": true,
-        "viewPath": "zplusap.sapui5.view"
-      },
-      "routes": [
-        {
-          "name": "RouteMain",
-          "pattern": ":?query:",
-          "target": [
-            "TargetMain"
-          ]
-        },
-        {
-          "name": "RouteDetail",
-          "pattern": "detail/:UserID:",
-          "target": [
-            "TargetMain",
-            "TargetDetail"
-          ]
-        },
-        {
-          "name": "RouteODataExamples",
-          "pattern": "odata-examples",
-          "target": [
-            "TargetODataExamples"
-          ]
-        }
-      ],
-      "targets": {
-        "TargetMain": {
-          "id": "Main",
-          "name": "Main"
-        },
-        "TargetDetail": {
-          "id": "Detail",
-          "name": "Detail"
-        },
-        "TargetODataExamples": {
-          "id": "ODataExamples",
-          "name": "ODataExamples"
-        }
-      }
-    },
-    "rootView": {
-      "viewName": "zplusap.sapui5.view.App",
-      "type": "XML",
-      "id": "App",
-      "async": true
-    }
-  },
-  "sap.cloud": {
-    "public": true,
-    "service": "zplusapsapui5"
-  }
 }

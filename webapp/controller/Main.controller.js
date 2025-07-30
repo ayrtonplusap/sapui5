@@ -210,5 +210,12 @@ sap.ui.define([
             this.getOwnerComponent().getRouter().navTo("RouteODataExamples");
         },
 
+        /* =======================================================
+         * Navegar a la vista de Ejemplos de Smart Controls
+         * ======================================================= */
+        onPressNavigateToSmartControls() {
+            this.getOwnerComponent().getRouter().navTo("RouteSmartControls");
+        },
+
     });
 });

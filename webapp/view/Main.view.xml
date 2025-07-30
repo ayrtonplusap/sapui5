@@ -16,6 +16,12 @@
                 type="Emphasized"
                 press="onPressNavigateToODataExamples"
              />
+            <Button 
+                text="Ver Smart Controls"
+                icon="sap-icon://form"
+                type="Emphasized"
+                press="onPressNavigateToSmartControls"
+             />
 		</headerContent>
         <VBox>
             

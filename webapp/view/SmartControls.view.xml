@@ -1,0 +1,124 @@
+<mvc:View
+    controllerName="zplusap.sapui5.controller.SmartControls"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:sl="sap.ui.comp.navpopover"
+    xmlns:smartChart="sap.ui.comp.smartchart"
+>
+    <Page
+    id="pageSC"
+    title="Ejemplos de Smart Controls"
+    showNavButton="true"
+    navButtonPress="onNavBack"
+    class="sapUiResponsivePadding--content"
+>
+    <content>
+
+            <!-- Panel: SmartFields individuales -->
+            <Panel headerText="SmartFields individuales (Price y Currency)" class="sapUiResponsiveMargin">
+                <smartForm:SmartForm editable="true">
+                    <smartForm:layout>
+                        <smartForm:ColumnLayout
+                            emptyCellsLarge="4"
+                            labelCellsLarge="4"
+                            columnsM="1"
+                            columnsL="1"
+                            columnsXL="1" />
+                    </smartForm:layout>
+                    <smartForm:Group>
+                        <smartForm:GroupElement>
+                            <smartField:SmartField value="{Price}" id="idPrice" />
+                        </smartForm:GroupElement>
+                        <smartForm:GroupElement>
+                            <smartField:SmartField value="{CurrencyCode}" id="idCurrency" />
+                        </smartForm:GroupElement>
+                    </smartForm:Group>
+                </smartForm:SmartForm>
+            </Panel>            
+
+            <!-- Panel: SmartForm editable -->
+            <Panel headerText="SmartForm completo (Product Info)" class="sapUiResponsiveMargin">
+                <smartForm:SmartForm id="smartForm" editTogglable="true" title="{Name}" flexEnabled="false">
+                    <smartForm:Group title="Product">
+                        <smartForm:GroupElement>
+                            <smartField:SmartField value="{ProductID}" />
+                        </smartForm:GroupElement>
+                        <smartForm:GroupElement>
+                            <smartField:SmartField value="{Name}" />
+                        </smartForm:GroupElement>
+                        <smartForm:GroupElement elementForLabel="1">
+                            <smartField:SmartField value="{Category}" />
+                            <smartField:SmartField value="{Description}" />
+                        </smartForm:GroupElement>
+                        <smartForm:GroupElement>
+                            <smartField:SmartField value="{Price}" />
+                        </smartForm:GroupElement>
+                    </smartForm:Group>
+                    <smartForm:Group title="Supplier">
+                        <smartForm:GroupElement>
+                            <smartField:SmartField value="{SupplierID}" />
+                        </smartForm:GroupElement>
+                        <smartForm:GroupElement>
+                            <smartField:SmartField value="{SupplierName}" />
+                        </smartForm:GroupElement>
+                    </smartForm:Group>
+                </smartForm:SmartForm>
+            </Panel>
+
+            <!-- Panel: SmartTable + FilterBar -->
+            <Panel headerText="SmartTable con FilterBar (Products)" class="sapUiResponsiveMargin">
+                <VBox>
+                    <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="ProductSet">
+                        <smartFilterBar:controlConfiguration>
+                            <smartFilterBar:ControlConfiguration
+                                key="Category"
+                                visibleInAdvancedArea="true"
+                                preventInitialDataFetchInValueHelpDialog="false" />
+                        </smartFilterBar:controlConfiguration>
+                    </smartFilterBar:SmartFilterBar>
+
+                    <smartTable:SmartTable
+                        id="smartTable_ResponsiveTable"
+                        smartFilterId="smartFilterBar"
+                        tableType="ResponsiveTable"
+                        editable="false"
+                        entitySet="ProductSet"
+                        useVariantManagement="false"
+                        useTablePersonalisation="true"
+                        header="Products"
+                        showRowCount="true"
+                        enableExport="true"
+                        enableAutoBinding="true"
+                        showTablePersonalisation="true"
+                        class="sapUiResponsiveMargin" />
+                </VBox>
+            </Panel>
+
+            <!-- Panel: SmartChart -->
+            <Panel headerText="SmartChart: Precio por Categoría" height="100%" class="sapUiResponsiveMargin">
+                <smartChart:SmartChart
+                    id="smartChart"
+                    entitySet="ProductSet"
+                    enableAutoBinding="true"
+                    useVariantManagement="true"
+                    useChartPersonalisation="true"
+                    header="Precio por categoría"
+                    persistencyKey="SmartChartProducts">
+                    <smartChart:semanticObjectController>
+                        <sl:SemanticObjectController />
+                    </smartChart:semanticObjectController>
+                </smartChart:SmartChart>
+            </Panel>
+
+            
+
+    </content>
+</Page>
+
+</mvc:View>

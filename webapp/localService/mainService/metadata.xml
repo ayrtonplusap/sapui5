@@ -39,7 +39,7 @@
                 <Property Name="MeasureUnit" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Qty. Unit" sap:semantics="unit-of-measure"/>
                 <Property Name="WeightMeasure" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="WeightUnit" sap:label="Wt. Measure"/>
                 <Property Name="WeightUnit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Qty. Unit" sap:semantics="unit-of-measure"/>
-                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency" sap:semantics="currency-code"/>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency" sap:semantics="currency-code"/>                
                 <Property Name="Price" Type="Edm.Decimal" Precision="16" Scale="3" sap:unicode="false" sap:unit="CurrencyCode" sap:label="Unit Price"/>
                 <Property Name="Width" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="DimUnit" sap:label="Dimensions"/>
                 <Property Name="Depth" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="DimUnit" sap:label="Dimensions"/>
