@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>userDetailsDialogTitle}" stretch="true">
+    <content>
+      <VBox class="sapUiMediumMargin">
+        <MessageStrip text="{i18n>userDetailsMessage}" type="Information" showIcon="true"/>
+
+        <Title text="{i18n>personalInfo}" level="H4" class="sapUiSmallMarginTop"/>
+
+        <List items="{mockData>/users}">
+          <!--
+          <StandardListItem
+            title="{mockData>name}"
+            description="{mockData>role}"
+            icon="{mockData>icon}"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active"
+          />
+          -->
+          <StandardListItem
+            title="{mockData>name}"
+            description="{
+                path: 'mockData>role',
+                formatter: '.formatI18n'
+            }"
+            icon="{mockData>icon}"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active"
+          />
+        </List>
+
+        <Title text="{i18n>notes}" level="H4" class="sapUiMediumMarginTop"/>
+
+        <!-- <TextArea value="{mockData>/notes}" width="100%" rows="4"/> -->
+        <TextArea value="{ 
+          path: 'mockData>/notes',
+          formatter: '.formatI18n'
+        }" 
+        width="100%" rows="4"/>
+
+      </VBox>
+    </content>
+    <buttons>
+      <Button text="{i18n>close}" press=".onCloseDialog"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

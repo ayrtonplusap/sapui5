@@ -217,5 +217,9 @@ sap.ui.define([
             this.getOwnerComponent().getRouter().navTo("RouteSmartControls");
         },
 
+        onPressNavigateToFragments() {
+            this.getOwnerComponent().getRouter().navTo("RouteFragmentsExamples");
+        }
+
     });
 });

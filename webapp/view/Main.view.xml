@@ -22,6 +22,12 @@
                 type="Emphasized"
                 press="onPressNavigateToSmartControls"
              />
+            <Button 
+                text="Ver Fragments y i18n"
+                icon="sap-icon://ai"
+                type="Success"
+                press="onPressNavigateToFragments"
+             />
 		</headerContent>
         <VBox>
             

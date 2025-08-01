@@ -85,7 +85,9 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "zplusap.sapui5.i18n.i18n"
+                    "bundleName": "zplusap.sapui5.i18n.i18n",
+                    "supportedLocales": ["", "en", "es"],
+                    "fallbackLocale": "en"
                 }
             },
             "localModel": {
@@ -149,6 +151,13 @@
                     "target": [
                         "TargetSmartControls"
                     ]
+                },
+                {
+                    "name": "RouteFragmentsExamples",
+                    "pattern": "fragments-examples",
+                    "target": [
+                        "TargetFragmentsExamples"
+                    ]
                 }
             ],
             "targets": {
@@ -167,6 +176,10 @@
                 "TargetSmartControls": {
                     "id": "SmartControls",
                     "name": "SmartControls"
+                },
+                "TargetFragmentsExamples": {
+                    "id": "FragmentsExamples",
+                    "name": "FragmentsExamples"
                 }
             }
         },
